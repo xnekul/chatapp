@@ -6,6 +6,7 @@ using api.Data;
 using api.Dtos.Room;
 using api.Mappers;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SQLitePCL;
 
 namespace api.Controllers
@@ -21,16 +22,16 @@ namespace api.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAll(){
-            var rooms = _context.Rooms.ToList();
+        public async Task<IActionResult> GetAll(){
+            var rooms = await _context.Rooms.ToListAsync(); 
             var roomDtos = rooms.Select(s => s.ToRoomDto()).ToList();
 
             return Ok(roomDtos);
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetById([FromRoute] int id){
-            var room = _context.Rooms.Find(id);
+        public async Task<IActionResult> GetById([FromRoute] int id){
+            var room = await _context.Rooms.FindAsync(id);
 
             if(room == null)
             {
@@ -41,19 +42,19 @@ namespace api.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create([FromBody] CreateRoomRequestDto roomDto)
+        public async Task<IActionResult> CreateAsync([FromBody] CreateRoomRequestDto roomDto)
         {
             var roomModel = roomDto.ToRoomFromCreateDto();
-            _context.Rooms.Add(roomModel);
-            _context.SaveChanges();
+            await _context.Rooms.AddAsync(roomModel);
+            await _context.SaveChangesAsync();
             return CreatedAtAction(nameof(GetById), new { id = roomModel.Id }, roomModel.ToRoomDto());
         }
 
         [HttpPut]
         [Route("{id}")]
-        public IActionResult Update([FromRoute] int id, [FromBody] UpdateRoomRequestDto roomDto)
+        public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateRoomRequestDto roomDto)
         {
-            var roomModel = _context.Rooms.Find(id);
+            var roomModel = await _context.Rooms.FindAsync(id);
 
             if(roomModel == null){
                 return NotFound();
@@ -61,25 +62,25 @@ namespace api.Controllers
 
             roomModel.Name = roomDto.Name;
 
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
 
             return Ok(roomModel.ToRoomDto());
         }
 
         [HttpDelete]
         [Route("{id}")]
-        public IActionResult Delete([FromRoute] int id)
+        public async Task<IActionResult> Delete([FromRoute] int id)
         {
-            var roomModel = _context.Rooms.Find(id);
+            var roomModel = await _context.Rooms.FindAsync(id);
 
             if(roomModel == null)
             {
                 return NotFound();
             }
 
-            _context.Rooms.Remove(roomModel);
+            _context.Rooms.Remove(roomModel); // Remove cannot be async
 
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
 
             return NoContent();
         }
