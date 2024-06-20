@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace api.Dtos.Room
 {
-    public class CreateRoomRequestDto
+    public class UpdateRoomRequestDto
     {
         public string Name {get; set; } = String.Empty;        
     }

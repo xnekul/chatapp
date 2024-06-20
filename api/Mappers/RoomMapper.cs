@@ -17,7 +17,7 @@ namespace api.Mappers
                 Name = roomModel.Name,
             };
         }
-        public static Room ToRoomFromCreateDto(this CreateRoomDto roomDto)
+        public static Room ToRoomFromCreateDto(this CreateRoomRequestDto roomDto)
         {
             return new Room
             {

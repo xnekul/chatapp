@@ -41,12 +41,29 @@ namespace api.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateRoom([FromBody] CreateRoomDto roomDto)
+        public IActionResult Create([FromBody] CreateRoomRequestDto roomDto)
         {
             var roomModel = roomDto.ToRoomFromCreateDto();
             _context.Rooms.Add(roomModel);
             _context.SaveChanges();
             return CreatedAtAction(nameof(GetById), new { id = roomModel.Id }, roomModel.ToRoomDto());
+        }
+
+        [HttpPut]
+        [Route("{id}")]
+        public IActionResult Update([FromRoute] int id, [FromBody] UpdateRoomRequestDto roomDto)
+        {
+            var roomModel = _context.Rooms.Find(id);
+
+            if(roomModel == null){
+                return NotFound();
+            }
+
+            roomModel.Name = roomDto.Name;
+
+            _context.SaveChanges();
+
+            return Ok(roomModel.ToRoomDto());
         }
 
     }
