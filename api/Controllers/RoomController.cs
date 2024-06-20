@@ -66,6 +66,24 @@ namespace api.Controllers
             return Ok(roomModel.ToRoomDto());
         }
 
+        [HttpDelete]
+        [Route("{id}")]
+        public IActionResult Delete([FromRoute] int id)
+        {
+            var roomModel = _context.Rooms.Find(id);
+
+            if(roomModel == null)
+            {
+                return NotFound();
+            }
+
+            _context.Rooms.Remove(roomModel);
+
+            _context.SaveChanges();
+
+            return NoContent();
+        }
+
     }
 
 }
