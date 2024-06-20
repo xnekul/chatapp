@@ -25,12 +25,12 @@ namespace api.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetUser([FromRoute] int id){
+        public IActionResult GetById([FromRoute] int id){
             var user = _context.Users.Find(id);
             
             if(user == null)
             {
-                return NotFound(user);
+                return NotFound();
             }
 
             return Ok(user);

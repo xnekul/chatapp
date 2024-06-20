@@ -25,12 +25,12 @@ namespace api.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetMessage([FromRoute] int id){
+        public IActionResult GetById([FromRoute] int id){
             var message = _context.Messages.Find(id);
             
             if(message == null)
             {
-                return NotFound(message);
+                return NotFound();
             }
 
             return Ok(message);
