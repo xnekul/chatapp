@@ -1,0 +1,140 @@
+# ASP.NET Core
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# .NET Core
+project.json
+*.xproj
+*.user
+*.vspscc
+.vscode/
+.vscode/*
+
+# VS Code
+.vscode/
+.vscode/*
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Auto-generated files
+Generated\
+
+# Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa][Rr][Mm]/
+ARM64/
+bld/
+[Bb]in/
+[Oo]bj/
+
+# Razor Design Time CodeGen
+*.g.cs
+*.g.i.cs
+*_i.cs
+*.generated.cs
+*.generated.i.cs
+*.designer.cs
+*.ddl.sql
+*.dacpac
+*.spf
+
+# Logs
+*.log
+
+# NPM Packages
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Webpack
+.DS_Store
+build/
+dist/
+
+# Published website
+wwwroot/
+
+# Backup & configuration files
+._*
+*.orig
+*.bak
+*.swp
+*~
+*.sw~
+*.tmp
+*.temp
+
+# Runtimes and dependencies
+*.nuget/
+nuget.exe
+packages/
+
+# Azure Pipelines
+!.azure-pipelines.yml
+*.azure-pipelines.yml
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# VS Code logs
+logs/
+
+# Compiled source
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+*.obj
+
+# Database
+*.mdf
+*.ldf
+*.ndf
+
+# Static Analysis and Code Coverage results
+*.coverage
+*.coveragexml
+*.pdb
+*.ruleset
+*.rswoproj
+*.vspxproj
+_TestResults/
+
+# StyleCop
+StyleCopReport.xml
+
+# Visual Studio Code Mac-specific files
+.idea/
+
+# NuGet
+*.nupkg
+*.snupkg
+.nuget/
+
+# Application Insights
+ApplicationInsights.config
+
+# JetBrains Rider
+.idea/
+*.sln.iml
+
+# End of custom additions
