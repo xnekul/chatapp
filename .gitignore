@@ -138,3 +138,6 @@ ApplicationInsights.config
 *.sln.iml
 
 # End of custom additions
+api/app.db-shm
+api/app.db
+api/app.db-wal
