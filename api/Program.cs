@@ -1,4 +1,7 @@
 using api.Data;
+using api.Entities;
+using api.Mappers;
+using api.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,6 +18,8 @@ builder.Services.AddDbContext<ApplicationDBContext>(options =>
     options.UseSqlite(connectionString);
 });
 
+builder.Services.AddScoped<IEntityMapper<RoomEntity>, RoomEntityMapper>();
+builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

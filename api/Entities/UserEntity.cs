@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace api.Models
+namespace api.Entities
 {
-    public class User
+    public class UserEntity : IEntity
     {
         public int Id { get; set; }
         public string Name { get; set; } = String.Empty;
-        public List<Room> Rooms = new List<Room>();
+        public List<RoomEntity> Rooms = new List<RoomEntity>();
     }
 }

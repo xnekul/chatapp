@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace api.Models
+namespace api.Entities
 {
-    public class Message
+    public class MessageEntity : IEntity
     {
         public int Id { get; set; }
         public int ChatId { get; set; }
-        public Room Room { get; set; } = new Room();
+        public RoomEntity Room { get; set; } = new RoomEntity();
         public int AuthorId { get; set; }
-        public User Author { get; set; } = new User();
+        public UserEntity Author { get; set; } = new UserEntity();
 
     }
 }
