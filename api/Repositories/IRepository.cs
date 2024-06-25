@@ -6,13 +6,13 @@ using api.Entities;
 
 namespace api.Repositories
 {
-    public interface IRepository<TModel> where TModel : class, IEntity
+    public interface IRepository<TEntity> where TEntity : class, IEntity
     {
-        Task<List<TModel>> GetAllAsync();
-        Task<TModel?> GetByIdAsync(int id);
+        Task<List<TEntity>> GetAllAsync();
+        Task<TEntity?> GetByIdAsync(int id);
         ValueTask<bool> DeleteAsync(int id);
         ValueTask<bool> ExistsAsync(int id);
-        Task<TModel> CreateAsync(TModel model);
-        Task<TModel?> UpdateAsync(TModel model);
+        Task<TEntity> CreateAsync(TEntity model);
+        Task<TEntity?> UpdateAsync(TEntity model);
     }
 }
