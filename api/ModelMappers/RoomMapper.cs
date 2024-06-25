@@ -16,6 +16,7 @@ namespace api.ModelMappers
             {
                 Id = roomModel.Id,
                 Name = roomModel.Name,
+                Messages = roomModel.Messages.Select(m => m.ToMessageDto()).ToList(),
             };
         }
         public static RoomEntity ToRoomFromCreateDto(this CreateRoomRequestDto roomDto)

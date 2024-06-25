@@ -19,6 +19,7 @@ builder.Services.AddDbContext<ApplicationDBContext>(options =>
 });
 
 builder.Services.AddScoped<IEntityMapper<RoomEntity>, RoomEntityMapper>();
+builder.Services.AddScoped<IEntityMapper<MessageEntity>, MessageEntityMapper>();
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 var app = builder.Build();
 

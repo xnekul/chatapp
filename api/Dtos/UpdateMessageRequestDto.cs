@@ -2,12 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using api.Dtos.Room;
-using api.Dtos.User;
 
-namespace api.Dtos.Message
+namespace api.Dtos
 {
-    public class MessageDto
+    public class UpdateMessageRequestDto
     {
         public int Id { get; set; }
         public int RoomId { get; set; }
