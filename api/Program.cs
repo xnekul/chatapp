@@ -11,6 +11,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddControllers().AddNewtonsoftJson(options =>
+{
+    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+});
 
 builder.Services.AddDbContext<ApplicationDBContext>(options =>
 {
@@ -20,7 +24,9 @@ builder.Services.AddDbContext<ApplicationDBContext>(options =>
 
 builder.Services.AddScoped<IEntityMapper<RoomEntity>, RoomEntityMapper>();
 builder.Services.AddScoped<IEntityMapper<MessageEntity>, MessageEntityMapper>();
-builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+builder.Services.AddScoped<IRepository<RoomEntity>, RoomRepository>();
+builder.Services.AddScoped(typeof(IRepository<>), typeof(RepositoryBase<>));
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

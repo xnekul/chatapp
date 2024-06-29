@@ -46,7 +46,7 @@ namespace api.Controllers
             return Ok(message.ToMessageDto());
         }
         [HttpPost]
-        public async Task<IActionResult> CreateAsync([FromBody] CreateMessageRequestDto messageDto)
+        public async Task<IActionResult> Create([FromBody] CreateMessageRequestDto messageDto)
         {
             var messageModel = await _repository.CreateAsync(messageDto.ToMessageFromCreateDto());
 

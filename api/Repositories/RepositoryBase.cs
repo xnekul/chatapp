@@ -9,19 +9,19 @@ using api.Mappers;
 
 namespace api.Repositories
 {
-    public class Repository<TEntity> : IRepository<TEntity>
+    public class RepositoryBase<TEntity> : IRepository<TEntity>
         where TEntity : class, IEntity
     {
-        private readonly ApplicationDBContext _context;
+        protected readonly ApplicationDBContext _context;
         private readonly IEntityMapper<TEntity> _entityMapper;
 
-        public Repository(ApplicationDBContext context, IEntityMapper<TEntity> entityMapper)
+        public RepositoryBase(ApplicationDBContext context, IEntityMapper<TEntity> entityMapper)
         {
             _context = context;
             _entityMapper = entityMapper;
         }
 
-        private DbSet<TEntity> getDbSet()
+        protected DbSet<TEntity> getDbSet()
         {
             return _context.Set<TEntity>();
         }
@@ -43,9 +43,9 @@ namespace api.Repositories
 
         public async Task<TEntity> CreateAsync(TEntity entity)
         {
-            var output = getDbSet().Add(entity).Entity;
+            await getDbSet().AddAsync(entity);
             await _context.SaveChangesAsync();
-            return output;
+            return entity;
         }
 
         public async Task<TEntity?> UpdateAsync(TEntity entity)

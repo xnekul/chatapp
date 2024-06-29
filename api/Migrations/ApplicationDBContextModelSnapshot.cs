@@ -19,13 +19,13 @@ namespace api.Migrations
 
             modelBuilder.Entity("UserRoom", b =>
                 {
-                    b.Property<int>("StudentId")
+                    b.Property<int>("RoomId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("UserId")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("StudentId", "UserId");
+                    b.HasKey("RoomId", "UserId");
 
                     b.HasIndex("UserId");
 
@@ -94,7 +94,7 @@ namespace api.Migrations
                 {
                     b.HasOne("api.Entities.RoomEntity", null)
                         .WithMany()
-                        .HasForeignKey("StudentId")
+                        .HasForeignKey("RoomId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -108,7 +108,7 @@ namespace api.Migrations
             modelBuilder.Entity("api.Entities.MessageEntity", b =>
                 {
                     b.HasOne("api.Entities.UserEntity", "Author")
-                        .WithMany()
+                        .WithMany("Messages")
                         .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -125,6 +125,11 @@ namespace api.Migrations
                 });
 
             modelBuilder.Entity("api.Entities.RoomEntity", b =>
+                {
+                    b.Navigation("Messages");
+                });
+
+            modelBuilder.Entity("api.Entities.UserEntity", b =>
                 {
                     b.Navigation("Messages");
                 });

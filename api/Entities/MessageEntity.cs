@@ -8,12 +8,11 @@ namespace api.Entities
     public class MessageEntity : IEntity
     {
         public int Id { get; set; }
+        public required int RoomId { get; set; }
+        public required int AuthorId { get; set; }
         public string Content { get; set; } = string.Empty;
         public DateTime Date { get; set; }
-        public int RoomId { get; set; }
-        public RoomEntity Room { get; set; } = new RoomEntity();
-        public int AuthorId { get; set; }
-        public UserEntity Author { get; set; } = new UserEntity();
-
+        public RoomEntity? Room { get; init; }
+        public UserEntity? Author { get; init; }
     }
 }

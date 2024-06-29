@@ -49,7 +49,7 @@ namespace api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateAsync([FromBody] CreateRoomRequestDto roomDto)
+        public async Task<IActionResult> Create([FromBody] CreateRoomRequestDto roomDto)
         {
             var roomModel = await _repository.CreateAsync(roomDto.ToRoomFromCreateDto());
 

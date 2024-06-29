@@ -25,8 +25,21 @@ namespace api.Data
                 .WithMany(c => c.Users)
                 .UsingEntity<Dictionary<string, object>>(
                     "UserRoom",
-                    j => j.HasOne<RoomEntity>().WithMany().HasForeignKey("StudentId"),
+                    j => j.HasOne<RoomEntity>().WithMany().HasForeignKey("RoomId"),
                     j => j.HasOne<UserEntity>().WithMany().HasForeignKey("UserId"));
+
+            modelBuilder.Entity<RoomEntity>()
+            .HasMany(e => e.Messages)
+            .WithOne(e => e.Room)
+            .HasForeignKey(e => e.RoomId)
+            .IsRequired();
+
+            modelBuilder.Entity<UserEntity>()
+            .HasMany(e => e.Messages)
+            .WithOne(e => e.Author)
+            .HasForeignKey(e => e.AuthorId)
+            .IsRequired();
+
         }
 
     }

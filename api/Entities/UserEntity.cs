@@ -10,5 +10,7 @@ namespace api.Entities
         public int Id { get; set; }
         public string Name { get; set; } = String.Empty;
         public List<RoomEntity> Rooms = new List<RoomEntity>();
+        public List<MessageEntity> Messages = new List<MessageEntity>();
+
     }
 }
