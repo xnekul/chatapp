@@ -22,13 +22,19 @@ namespace api.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             var users = _context.Users.ToList();
             return Ok(users);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         public IActionResult GetById([FromRoute] int id)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             var user = _context.Users.Find(id);
 
             if (user == null)

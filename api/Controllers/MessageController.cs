@@ -28,14 +28,20 @@ namespace api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllAsync()
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             var messages = await _repository.GetAllAsync();
             var messageDtos = messages.Select(s => s.ToMessageDto()).ToList();
             return Ok(messageDtos);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             var message = await _repository.GetByIdAsync(id);
 
             if (message == null)
@@ -48,15 +54,21 @@ namespace api.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateMessageRequestDto messageDto)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             var messageModel = await _repository.CreateAsync(messageDto.ToMessageFromCreateDto());
 
             return CreatedAtAction(nameof(GetById), new { id = messageModel.Id }, messageModel.ToMessageDto());
         }
 
         [HttpPut]
-        [Route("{id}")]
+        [Route("{id:int}")]
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateMessageRequestDto messageDto)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             var newMessageEntity = messageDto.ToMessageFromUpdateDto(id);
             var updatedMessageEntity = await _repository.UpdateAsync(newMessageEntity);
 
@@ -69,9 +81,12 @@ namespace api.Controllers
         }
 
         [HttpDelete]
-        [Route("{id}")]
+        [Route("{id:int}")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             bool success = await _repository.DeleteAsync(id);
 
             if (success == false)

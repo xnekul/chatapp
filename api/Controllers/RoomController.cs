@@ -29,15 +29,21 @@ namespace api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             var rooms = await _repository.GetAllAsync();
             var roomDtos = rooms.Select(s => s.ToRoomDto()).ToList();
 
             return Ok(roomDtos);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             var room = await _repository.GetByIdAsync(id);
 
             if (room == null)
@@ -51,15 +57,21 @@ namespace api.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateRoomRequestDto roomDto)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             var roomModel = await _repository.CreateAsync(roomDto.ToRoomFromCreateDto());
 
             return CreatedAtAction(nameof(GetById), new { id = roomModel.Id }, roomModel.ToRoomDto());
         }
 
         [HttpPut]
-        [Route("{id}")]
+        [Route("{id:int}")]
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateRoomRequestDto roomDto)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             var newRoomEntity = roomDto.ToRoomFromUpdateDto(id);
             var updatedRoomEntity = await _repository.UpdateAsync(newRoomEntity);
 
@@ -72,9 +84,12 @@ namespace api.Controllers
         }
 
         [HttpDelete]
-        [Route("{id}")]
+        [Route("{id:int}")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             bool success = await _repository.DeleteAsync(id);
 
             if (success == false)
