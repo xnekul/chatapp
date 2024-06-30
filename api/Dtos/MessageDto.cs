@@ -11,7 +11,7 @@ namespace api.Dtos.Message
     {
         public int Id { get; set; }
         public int RoomId { get; set; }
-        public int AuthorId { get; set; }
+        public string AuthorId { get; set; } = string.Empty;
         public string Content { get; set; } = string.Empty;
         public DateTime Date { get; set; }
     }

@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using api.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace api.Data
 {
-    public class ApplicationDBContext : DbContext
+    public class ApplicationDBContext : IdentityDbContext<UserEntity>
     {
         public ApplicationDBContext(DbContextOptions dbContextOptions) : base(dbContextOptions)
         {
@@ -15,11 +16,12 @@ namespace api.Data
         }
 
         public DbSet<RoomEntity> Rooms { get; set; }
-        public DbSet<UserEntity> Users { get; set; }
         public DbSet<MessageEntity> Messages { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<UserEntity>()
                 .HasMany(s => s.Rooms)
                 .WithMany(c => c.Users)

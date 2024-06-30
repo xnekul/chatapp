@@ -8,7 +8,7 @@ namespace api.Dtos.User
 {
     public class UserDto
     {
-        public int Id { get; set; }
+        public required string Id { get; set; }
         public string Name { get; set; } = String.Empty;
         public List<RoomDto> Rooms = new List<RoomDto>();
     }

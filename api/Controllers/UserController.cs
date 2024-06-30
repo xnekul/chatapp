@@ -29,8 +29,8 @@ namespace api.Controllers
             return Ok(users);
         }
 
-        [HttpGet("{id:int}")]
-        public IActionResult GetById([FromRoute] int id)
+        [HttpGet("{id}")]
+        public IActionResult GetById([FromRoute] string id)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);

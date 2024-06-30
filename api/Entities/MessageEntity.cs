@@ -9,7 +9,7 @@ namespace api.Entities
     {
         public int Id { get; set; }
         public required int RoomId { get; set; }
-        public required int AuthorId { get; set; }
+        public required string AuthorId { get; set; }
         public string Content { get; set; } = string.Empty;
         public DateTime Date { get; set; }
         public RoomEntity? Room { get; init; }
