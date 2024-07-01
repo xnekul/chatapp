@@ -2,6 +2,7 @@ using api.Data;
 using api.Entities;
 using api.Mappers;
 using api.Repositories;
+using api.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -60,6 +61,7 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddScoped<IEntityMapper<RoomEntity>, RoomEntityMapper>();
 builder.Services.AddScoped<IEntityMapper<MessageEntity>, MessageEntityMapper>();
 builder.Services.AddScoped<IRepository<RoomEntity>, RoomRepository>();
+builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped(typeof(IRepository<>), typeof(RepositoryBase<>));
 
 var app = builder.Build();

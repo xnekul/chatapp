@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using api.Data;
 using api.Dtos;
 using api.Entities;
+using api.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SQLitePCL;
@@ -16,10 +17,12 @@ namespace api.Controllers
     public class AccountController : ControllerBase
     {
         private readonly UserManager<UserEntity> _userManager;
+        private readonly ITokenService _tokenService;
 
-        public AccountController(UserManager<UserEntity> userManager, ApplicationDBContext context)
+        public AccountController(UserManager<UserEntity> userManager, ApplicationDBContext context, ITokenService tokenService)
         {
             _userManager = userManager;
+            _tokenService = tokenService;
         }
 
         [HttpPost("register")]
@@ -43,7 +46,14 @@ namespace api.Controllers
                     var roleResult = await _userManager.AddToRoleAsync(appUser, "User");
                     if (roleResult.Succeeded)
                     {
-                        return Ok("User created");
+                        return Ok(
+                            new NewUserDto
+                            {
+                                UserName = appUser.UserName,
+                                Email = appUser.Email,
+                                Token = _tokenService.CreateToken(appUser)
+                            }
+                        );
                     }
                     else
                     {
