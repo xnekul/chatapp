@@ -5,11 +5,12 @@ using System.Threading.Tasks;
 using api.Data;
 using api.Dtos;
 using api.Entities;
+using api.Extensions;
 using api.ModelMappers;
 using api.Repositories;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using SQLitePCL;
-
 namespace api.Controllers
 {
     [Route("api/message")]
@@ -17,12 +18,14 @@ namespace api.Controllers
     public class MessageController : ControllerBase
     {
         private readonly ApplicationDBContext _context;
+        private readonly UserManager<UserEntity> _userManager;
         private readonly IRepository<MessageEntity> _repository;
 
-        public MessageController(ApplicationDBContext context, IRepository<MessageEntity> repository)
+        public MessageController(ApplicationDBContext context, IRepository<MessageEntity> repository, UserManager<UserEntity> userManager)
         {
             _context = context;
             _repository = repository;
+            _userManager = userManager;
         }
 
         [HttpGet]
@@ -51,17 +54,23 @@ namespace api.Controllers
 
             return Ok(message.ToMessageDto());
         }
+
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateMessageRequestDto messageDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var messageModel = await _repository.CreateAsync(messageDto.ToMessageFromCreateDto());
+            var username = User.GetUsername();
+            var appUser = await _userManager.FindByNameAsync(username);
+
+            var messageModel = await _repository.CreateAsync(messageDto.ToMessageFromCreateDto(appUser.Id));
 
             return CreatedAtAction(nameof(GetById), new { id = messageModel.Id }, messageModel.ToMessageDto());
         }
 
+        [Authorize]
         [HttpPut]
         [Route("{id:int}")]
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateMessageRequestDto messageDto)

@@ -21,14 +21,14 @@ namespace api.ModelMappers
                 AuthorId = messageModel.AuthorId,
             };
         }
-        public static MessageEntity ToMessageFromCreateDto(this CreateMessageRequestDto messageDto)
+        public static MessageEntity ToMessageFromCreateDto(this CreateMessageRequestDto messageDto, string AuthorId)
         {
             return new MessageEntity
             {
                 Content = messageDto.Content,
                 Date = DateTime.UtcNow,
                 RoomId = messageDto.RoomId,
-                AuthorId = messageDto.AuthorId,
+                AuthorId = AuthorId,
             };
         }
         public static MessageEntity ToMessageFromUpdateDto(this UpdateMessageRequestDto messageDto, int id)

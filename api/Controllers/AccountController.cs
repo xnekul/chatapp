@@ -6,8 +6,10 @@ using api.Data;
 using api.Dtos;
 using api.Entities;
 using api.Services;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SQLitePCL;
 
 namespace api.Controllers
@@ -18,11 +20,13 @@ namespace api.Controllers
     {
         private readonly UserManager<UserEntity> _userManager;
         private readonly ITokenService _tokenService;
+        private readonly SignInManager<UserEntity> _signInManager;
 
-        public AccountController(UserManager<UserEntity> userManager, ApplicationDBContext context, ITokenService tokenService)
+        public AccountController(UserManager<UserEntity> userManager, ApplicationDBContext context, ITokenService tokenService, SignInManager<UserEntity> signInManager)
         {
             _userManager = userManager;
             _tokenService = tokenService;
+            _signInManager = signInManager;
         }
 
         [HttpPost("register")]
@@ -70,6 +74,30 @@ namespace api.Controllers
                 return StatusCode(500, e);
             }
         }
+        [HttpPost("login")]
+        public async Task<IActionResult> Login(LoginDto loginDto)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+            var user = await _userManager.Users.FirstOrDefaultAsync(x => x.UserName == loginDto.UserName);
+
+            if (user == null) return Unauthorized("Invalid username or password.");
+
+            var result = await _signInManager.CheckPasswordSignInAsync(user, loginDto.Password, false);
+
+            if (!result.Succeeded) return Unauthorized("Invalid username or password.");
+
+            return Ok(
+                new NewUserDto
+                {
+                    UserName = user.UserName,
+                    Email = user.Email,
+                    Token = _tokenService.CreateToken(user)
+                }
+            );
+        }
+
     }
+
 
 }

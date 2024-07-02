@@ -11,8 +11,6 @@ namespace api.Dtos
         [Required]
         public int RoomId { get; set; }
         [Required]
-        public required string AuthorId { get; set; }
-        [Required]
         [MinLength(1, ErrorMessage = "Content must not be empty")]
         [MaxLength(500, ErrorMessage = "Content cannot be over 500 characters")]
         public string Content { get; set; } = string.Empty;

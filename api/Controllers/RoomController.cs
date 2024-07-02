@@ -7,6 +7,7 @@ using api.Dtos.Room;
 using api.Entities;
 using api.ModelMappers;
 using api.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SQLitePCL;
@@ -26,6 +27,7 @@ namespace api.Controllers
             _repository = repository;
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -38,6 +40,7 @@ namespace api.Controllers
             return Ok(roomDtos);
         }
 
+        [Authorize]
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
@@ -54,6 +57,7 @@ namespace api.Controllers
             return Ok(room.ToRoomDto());
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateRoomRequestDto roomDto)
         {
@@ -83,6 +87,7 @@ namespace api.Controllers
             return Ok(updatedRoomEntity.ToRoomDto());
         }
 
+        [Authorize]
         [HttpDelete]
         [Route("{id:int}")]
         public async Task<IActionResult> Delete([FromRoute] int id)
