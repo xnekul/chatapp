@@ -12,7 +12,7 @@ const CardRoom: React.FC<Props> = ({ roomValue, onRoomDelete }: Props): JSX.Elem
     return (
         <>
             <h4>Room name: {roomValue.name}</h4>
-            <DeleteRoom roomValue={roomValue.name} onRoomDelete={onRoomDelete} />
+            {/*<DeleteRoom roomValue={roomValue.name} onRoomDelete={onRoomDelete} />*/}
             <Link to={`/room/${roomValue.id}/room-info`}>Go to Room</Link>
         </>
     );

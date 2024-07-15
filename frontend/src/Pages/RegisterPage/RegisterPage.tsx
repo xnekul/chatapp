@@ -33,7 +33,7 @@ const RegisterPage = (props: Props) => {
 
     return (
         <>
-            <h1>Sign in to your account</h1>
+            <h1>Register new account</h1>
             <form onSubmit={handleSubmit(handleRegister)}>
                 <div>
                     <label htmlFor="email">Email</label>
@@ -61,9 +61,6 @@ const RegisterPage = (props: Props) => {
                     {errors.password ? <p>{errors.password.message}</p> : ''}
                 </div>
                 <button type="submit">Register</button>
-                <p>
-                    Don’t have an account yet? <a href="#">Register TODO</a>
-                </p>
             </form>
         </>
     );

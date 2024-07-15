@@ -3,6 +3,7 @@ import * as Yup from 'yup';
 import { useAuth } from '../../Context/useAuth';
 import { yupResolver } from '@hookform/resolvers//yup';
 import { useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
 
 interface Props {}
 
@@ -30,7 +31,7 @@ const LoginPage = (props: Props) => {
 
     return (
         <>
-            <h1>Sign in to your account</h1>
+            <h1>Login to your account</h1>
             <form onSubmit={handleSubmit(handleLogin)}>
                 <div>
                     <label htmlFor="email">Username</label>
@@ -53,11 +54,11 @@ const LoginPage = (props: Props) => {
                     {errors.password ? <p>{errors.password.message}</p> : ''}
                 </div>
                 <div>
-                    <a href="#">Forgot password?</a>
+                    <a href="#">Forgot password? TBD</a>
                 </div>
-                <button type="submit">Sign in</button>
+                <button type="submit">Register</button>
                 <p>
-                    Don’t have an account yet? <a href="#">Sign up</a>
+                    Don’t have an account yet? <Link to="/register">Register</Link>
                 </p>
             </form>
         </>
