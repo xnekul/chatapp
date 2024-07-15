@@ -41,7 +41,7 @@ const RoomChat = (props: Props) => {
                 <MessageList messageValues={messageValues} />
             </div>
             <div>
-                <MessageForm roomId={ticker} />
+                <MessageForm roomId={ticker} updateMessages={getMessage} />
             </div>
         </>
     );

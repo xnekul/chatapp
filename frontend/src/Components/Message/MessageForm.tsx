@@ -7,6 +7,7 @@ import { messagePostAPI } from '../../Services/MessageService';
 
 interface Props {
     roomId: string;
+    updateMessages: () => void;
 }
 
 type MessageFormsInputs = {
@@ -17,7 +18,7 @@ const validation = Yup.object().shape({
     content: Yup.string().required('Text is required.'),
 });
 
-const MessageForm = ({ roomId }: Props) => {
+const MessageForm = ({ roomId, updateMessages }: Props) => {
     const {
         register,
         handleSubmit,
@@ -26,6 +27,7 @@ const MessageForm = ({ roomId }: Props) => {
 
     const handleMessagePost = (form: MessageFormsInputs) => {
         messagePostAPI(roomId, form.content);
+        updateMessages();
     };
 
     return (
