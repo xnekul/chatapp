@@ -2,7 +2,7 @@ import axios from 'axios';
 import { RoomGet, RoomPost } from '../Models/Room';
 import { handleError } from '../Helpers/ErrorHandle';
 
-const api = 'http://192.168.75.127:5234/api/room/';
+const api = api_url + 'room/';
 
 export const roomPostAPI = async (name: string) => {
     try {
