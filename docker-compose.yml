@@ -1,0 +1,19 @@
+version: '3.4'
+
+services:
+  frontend:
+    image: frontend
+    build:
+      context: frontend
+      dockerfile: ./Dockerfile
+    environment:
+      NODE_ENV: production
+    ports:
+      - 80:80
+  api:
+    image: api
+    build:
+      context: .
+      dockerfile: api/Dockerfile
+    ports:
+      - 5234:5234
