@@ -1,6 +1,5 @@
 import React from 'react';
 import { MessageGet } from '../../Models/Message';
-import { v4 as uuidv4 } from 'uuid';
 import MessageCard from './MessageCard';
 
 interface Props {
@@ -12,7 +11,7 @@ const MessageList = ({ messageValues }: Props) => {
         <div>
             {messageValues.length > 0 ? (
                 messageValues.map((value) => {
-                    return <MessageCard key={uuidv4()} messageValue={value} />;
+                    return <MessageCard key={value.id} messageValue={value} />;
                 })
             ) : (
                 <h1>No messages {':('}</h1>

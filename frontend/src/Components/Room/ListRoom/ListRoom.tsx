@@ -1,7 +1,6 @@
 import React, { SyntheticEvent } from 'react';
 import CardRoom from '../CardRoom/CardRoom';
 import { RoomGet } from '../../../Models/Room';
-import { v4 as uuidv4 } from 'uuid';
 
 interface Props {
     roomValues: RoomGet[];
@@ -14,7 +13,7 @@ const ListRoom: React.FC<Props> = ({ roomValues, onRoomDelete }: Props): JSX.Ele
             {roomValues.length > 0 ? (
                 roomValues.map((value) => {
                     return (
-                        <CardRoom key={uuidv4()} roomValue={value} onRoomDelete={onRoomDelete} />
+                        <CardRoom key={value.id} roomValue={value} onRoomDelete={onRoomDelete} />
                     );
                 })
             ) : (
