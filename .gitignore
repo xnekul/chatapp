@@ -142,3 +142,4 @@ api/app.db-shm
 api/app.db
 api/app.db-wal
 .env
+*.db

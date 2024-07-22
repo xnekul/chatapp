@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { RoomGet, RoomPost } from '../Models/Room';
 import { handleError } from '../Helpers/ErrorHandle';
+import { api_url } from './api';
 
 const api = api_url + 'room/';
 

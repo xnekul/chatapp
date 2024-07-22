@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { MessageGet, MessagePost } from '../Models/Message';
 import { handleError } from '../Helpers/ErrorHandle';
+import { api_url } from './api';
 
 const api = api_url + 'message/';
 

@@ -4,9 +4,9 @@ EXPOSE 5234
 
 ENV ASPNETCORE_URLS=http://+:5234
 
-USER app
 FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG configuration=Release
+ENV ASPNETCORE_URLS=http://*:5234
 WORKDIR /src
 COPY ["api/api.csproj", "api/"]
 RUN dotnet restore "api/api.csproj"
@@ -21,4 +21,5 @@ RUN dotnet publish "api.csproj" -c $configuration -o /app/publish /p:UseAppHost=
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+COPY api/app.db .
 ENTRYPOINT ["dotnet", "api.dll"]
