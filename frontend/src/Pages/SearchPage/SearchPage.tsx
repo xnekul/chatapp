@@ -5,6 +5,8 @@ import Cardlist from '../../Components/CardList/Cardlist';
 import { Link } from 'react-router-dom';
 import { RoomGet } from '../../Models/Room';
 import { roomGetAPI } from '../../Services/RoomService';
+import AddRoom from '../../Components/Room/AddRoom/AddRoom';
+import CreateRoom from '../../Components/Room/CreateRoom/CreateRoom';
 
 interface Props {}
 
@@ -72,6 +74,7 @@ const SearchPage = (props: Props) => {
                 search={search}
                 handleSearchChange={handleSearchChange}
             />
+            <CreateRoom updateRooms={getRoom} />
             {serverError && <h1>{serverError}</h1>}
             <ListRoom roomValues={roomValues} onRoomDelete={onRoomDelete} />
             {/*<Cardlist searchResult={searchResult} onRoomAdd={onRoomAdd} />*/}

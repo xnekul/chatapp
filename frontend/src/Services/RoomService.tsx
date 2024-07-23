@@ -7,7 +7,9 @@ const api = api_url + 'room/';
 
 export const roomPostAPI = async (name: string) => {
     try {
-        const data = await axios.post<RoomPost>(api + `${name}`, {});
+        const data = await axios.post<RoomPost>(api, {
+            name: name,
+        });
         return data;
     } catch (error) {
         handleError(error);
